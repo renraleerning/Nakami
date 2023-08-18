@@ -24,7 +24,9 @@
 							echo "-";
 						}else{
 							?>
-							<img src="<?php echo base_url('Aset/bukti/').$key->bukti_struk; ?>">
+							<center>
+								<button class="text-center font-bold text-lg w-36 bg-white hover:bg-[#919191] hover:border-[white] border-[1px] border-black rounded-xl " onclick="openModal('modal<?php echo($key->id) ?>')">tampilkan</button>
+							</center>
 							<?php
 							
 						} ?></td>
@@ -42,3 +44,53 @@
 	<footer class="bg-[#919191] w-full"><pre> </pre> </footer>
 </body>
 </html>
+
+<?php
+	foreach ($pemasukan as $key) {
+		?>
+
+<div id="modal<?php echo $key->id ?>" class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 modal<?php echo $key->id; ?>">
+    <div class="relative top-20 mx-auto shadow-xl rounded-md bg-white max-w-md">
+
+        <!-- Modal header -->
+        <div class="flex justify-between items-center bg-green-500 text-white text-xl rounded-t-md px-4 py-2">
+            <h3>Bukti Struk</h3>
+            <button onclick="closeModal('modal<?php echo $key->id ?>')">x</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="max-h-[500px] overflow-y-scroll p-4">
+        	<table>
+        		<tr>
+        			<td>Jenis Barang</td>
+        			<td> : <?php echo $key->jenis_barang ; ?></td>
+        		</tr>
+        		<tr>
+        			<td>Tanggal</td>
+        			<td> : <?php echo $key->tanggal ; ?></td>
+        		</tr>
+        	</table>
+            <img src="<?php echo base_url('Aset/bukti/').$key->bukti_struk ?>">
+        </div>
+
+        <!-- Modal footer -->
+        <div class="px-4 py-2 border-t border-t-gray-500 flex justify-end items-center space-x-4">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition" onclick="closeModal('modal<?php echo $key->id ?>')">Close</button>
+        </div>
+    </div>
+</div>
+
+		<script type="text/javascript">
+		window.openModal = function(modalId) {
+		  document.getElementById(modalId).style.display = 'block'
+		  document.getElementsByTagName('body')[0].classList.add('overflow-y-hidden')
+		}
+
+		window.closeModal = function(modalId) {
+		  document.getElementById(modalId).style.display = 'none'
+		  document.getElementsByTagName('body')[0].classList.remove('overflow-y-hidden')
+		}
+		</script>
+		<?php
+	}
+?>

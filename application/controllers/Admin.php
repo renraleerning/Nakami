@@ -2,6 +2,13 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
+	public function __construct(){
+        parent::__construct();
+        // if (isset($this->session->userdata['admin'])) {
+        // } else {
+        //     redirect(base_url());
+        // }
+    }
 	public function index()
 	{
 		$data['judul']='Daftar Barang';
@@ -110,7 +117,6 @@ class Admin extends CI_Controller {
             'jabatan' => $_POST['jabatan'],
             'alamat' => $_POST['alamat'],
             'masuk' => $_POST['masuk'],
-            'keluar' => null,
             'status' => $_POST['status'],
         );
          $this->Naka->insert_table($pegawai,'daftar_pegawai');
@@ -119,12 +125,82 @@ class Admin extends CI_Controller {
 	function tambah_gaji(){
 		$data = array(
             'nik' => $_POST['nik'],
-            'id' => null,
             'gaji' => $_POST['gaji'],
             'tanggal' =>  $_POST['tanggal'],
         );
          $this->Naka->insert_table($data,'gaji_pegawai');
         redirect('Admin/gaji_pegawai');
 	}
+	function tambah_pemesanan(){
+		$data = array(
+            'tanggal' => $_POST['tanggal'],
+            'nama_pemesan' => $_POST['nama_pemesan'],
+            'jenis_pesanan' =>  $_POST['jenis_pesanan'],
+            'qty' =>  $_POST['qty'],
+            'harga_satuan' =>  $_POST['harga_satuan'],
+            'jumlah' =>  $_POST['qty']*$_POST['harga_satuan'],
+            'DP' =>  $_POST['DP'],
+            'keterangan' =>  $_POST['keterangan'],
+        );
+         $this->Naka->insert_table($data,'daftar_pesanan');
+        redirect('Admin/daftar_pesanan');
+	}
+	 public function tambah_pengeluaran()
+    {
+        $data['judul'] = 'Form Tambah Pengeluaran';
+        $config['upload_path']  = './Aset/bukti';
+	    $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $this->load->library('upload', $config);
+        
+        if ($this->upload->do_upload('bukti_struk')) {
+        	$file = $this->upload->data();
+	       	$data = array(
+	            'bukti_struk' => $file['file_name'],
+	            'tanggal' => $_POST['tanggal'],
+				'jenis_barang' => $_POST['jenis_barang'],
+				'nominal' => $_POST['nominal'],
+	        );
+         	    	
+        }else{
+        	 $data = array(
+	        'tanggal' => $_POST['tanggal'],
+	        'jenis_barang' => $_POST['jenis_barang'],
+	        'nominal' => $_POST['nominal'],
+        	);
+        }
+        print_r($data);
 
+        $this->Naka->insert_table($data,'daftar_pengeluaran');
+        redirect('admin/daftar_pengeluaran');
+
+    }
+    public function tambah_pemasukan()
+    {
+        $data['judul'] = 'Form Tambah Pemasukan';
+        $config['upload_path']  = './Aset/bukti';
+	    $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $this->load->library('upload', $config);
+        
+        if ($this->upload->do_upload('bukti_transfer')) {
+        	$file = $this->upload->data();
+	       	$data = array(
+	            'bukti_transfer' => $file['file_name'],
+	            'tanggal' => $_POST['tanggal'],
+				'nama_pemesan' => $_POST['nama_pemesan'],
+				'nominal' => $_POST['nominal']
+	        );
+         	    	
+        }else{
+        	 $data = array(
+	     		'tanggal' => $_POST['tanggal'],
+				'nama_pemesan' => $_POST['nama_pemesan'],
+				'nominal' => $_POST['nominal']
+        	);
+        }
+        print_r($data);
+
+        $this->Naka->insert_table($data,'daftar_pemasukan');
+        redirect('admin/daftar_pemasukan');
+
+    }
 }
