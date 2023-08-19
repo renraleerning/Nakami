@@ -41,8 +41,8 @@
 						<td class="border-2 border-black pl-2"><?php echo $key->jabatan; ?></td>
 						<td class="border-2 border-black pl-2"><?php echo $key->gaji; ?></td>
 						<td class="border-2 border-black w-36">
-							<a class="ml-[5px] text-center font-bold text-lg px-2 bg-[green] hover:bg-white border-2 border-black rounded-xl" href="">edit</a>
-							<a class=" text-center font-bold text-lg px-2 bg-[red] hover:bg-white border-2 border-black rounded-xl" href="">delete</a>
+							<a class="ml-[5px] text-center font-bold text-lg px-2 bg-[green] hover:bg-white border-2 border-black rounded-xl" href="<?php echo site_url('Admin/edit_gaji/').$key->id ?>">edit</a>
+							<a class=" text-center font-bold text-lg px-2 bg-[red] hover:bg-white border-2 border-black rounded-xl" href="<?php echo site_url('Admin/hapus_gaji_pegawai/').$key->id ?>">delete</a>
 						</td>
 					</tr>
 					<?php

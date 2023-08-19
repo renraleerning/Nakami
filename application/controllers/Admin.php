@@ -203,4 +203,177 @@ class Admin extends CI_Controller {
         redirect('admin/daftar_pemasukan');
 
     }
+    public function edit_daftar_barang($id){
+    	$data['judul']='Edit Daftar Barang';
+		$this->load->view('Admin/form_head',$data);
+		$data['daftar_barang']=$this->Naka->daftar_select('daftar_barang',$id)->result();
+		$this->load->view('Admin/form_daftar_barang_u',$data);
+		$this->load->view('Admin/form_footer');
+    }
+    function update_daftar_barang(){
+        $barang = array(
+            
+            'nama_barang' => $_POST['nama_barang'],
+            'jenis_bahan' => $_POST['jenis_bahan'],
+            'stok_barang' => $_POST['stok_barang'],
+            'keterangan' => $_POST['keterangan'],
+        );
+        $id= $_POST['id'];
+        $this->Naka->update_table($barang,'daftar_barang',$id);
+        redirect('Admin');
+	}
+	function hapus_barang($id){
+		$this->Naka->delete_table('daftar_barang',$id);
+        redirect('Admin');
+	}
+	function edit_pegawai($id){
+		$data['judul']='Edit Daftar Pegawai';
+		$this->load->view('Admin/form_head',$data);
+		$data['pegawai']=$this->Naka->daftar_select('daftar_pegawai',$id)->result();
+		$this->load->view('Admin/form_pegawai_u',$data);
+		$this->load->view('Admin/form_footer');
+	}
+	 function update_pegawai(){
+        $data = array(
+            
+            'nama' => $_POST['nama'],
+            'jabatan' => $_POST['jabatan'],
+            'alamat' => $_POST['alamat'],
+            'masuk' => $_POST['masuk'],
+            'status' => $_POST['status'],
+        );
+        $id= $_POST['id'];
+        $this->Naka->update_table($data,'daftar_pegawai',$id);
+        redirect('Admin/daftar_pegawai');
+	}
+	function edit_pemasukan($id){
+		$data['judul']='Edit Daftar Pegawai';
+		$this->load->view('Admin/form_head',$data);
+		$data['pemasukan']=$this->Naka->daftar_select('daftar_pemasukan',$id)->result();
+		$this->load->view('Admin/form_daftar_pemasukan_u',$data);
+		$this->load->view('Admin/form_footer');
+	}
+	function update_pemasukan(){
+	  $data['judul'] = 'Form Tambah Pemasukan';
+        $config['upload_path']  = './Aset/bukti';
+	    $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $this->load->library('upload', $config);
+        
+        if ($this->upload->do_upload('bukti_transfer')) {
+        	$file = $this->upload->data();
+	       	$data = array(
+	            'bukti_transfer' => $file['file_name'],
+	            'tanggal' => $_POST['tanggal'],
+				'nama_pemesan' => $_POST['nama_pemesan'],
+				'nominal' => $_POST['nominal']
+	        );
+         	    	
+        }else{
+        	 $data = array(
+	     		'tanggal' => $_POST['tanggal'],
+				'nama_pemesan' => $_POST['nama_pemesan'],
+				'nominal' => $_POST['nominal']
+        	);
+        }
+        $id=$_POST['id'];
+        $this->Naka->update_table($data,'daftar_pemasukan',$id);
+        redirect('admin/daftar_pemasukan');
+	}
+	function edit_pengeluaran($id){
+		$data['judul']='Edit Daftar Pengeluaran';
+		$this->load->view('Admin/form_head',$data);
+		$data['pemasukan']=$this->Naka->daftar_select('daftar_pemasukan',$id)->result();
+		$this->load->view('Admin/form_daftar_pemasukan_u',$data);
+		$this->load->view('Admin/form_footer');
+	}
+	function update_pengeluaran(){
+        $config['upload_path']  = './Aset/bukti';
+	    $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $this->load->library('upload', $config);
+        
+        if ($this->upload->do_upload('bukti_struk')) {
+        	$file = $this->upload->data();
+	       	$data = array(
+	            'bukti_struk' => $file['file_name'],
+	            'tanggal' => $_POST['tanggal'],
+				'jenis_barang' => $_POST['jenis_barang'],
+				'nominal' => $_POST['nominal'],
+	        );
+         	    	
+        }else{
+        	 $data = array(
+	        'tanggal' => $_POST['tanggal'],
+	        'jenis_barang' => $_POST['jenis_barang'],
+	        'nominal' => $_POST['nominal'],
+        	);
+        }
+        $id=$_POST('id');
+
+        $this->Naka->update_table($data,'daftar_pengeluaran',$id);
+        redirect('admin/daftar_pengeluaran');
+	}
+	function edit_pemesanan($id){
+			$data['judul']='Edit Daftar Pemesanan';
+		$this->load->view('Admin/form_head',$data);
+		$data['pemesanan']=$this->Naka->daftar_select('daftar_pesanan',$id)->result();
+		$this->load->view('Admin/form_daftar_pemesanan_u',$data);
+		$this->load->view('Admin/form_footer');
+	}
+	function update_pemesanan(){
+			$data = array(
+            'tanggal' => $_POST['tanggal'],
+            'nama_pemesan' => $_POST['nama_pemesan'],
+            'jenis_pesanan' =>  $_POST['jenis_pesanan'],
+            'qty' =>  $_POST['qty'],
+            'harga_satuan' =>  $_POST['harga_satuan'],
+            'jumlah' =>  $_POST['qty']*$_POST['harga_satuan'],
+            'DP' =>  $_POST['DP'],
+            'keterangan' =>  $_POST['keterangan']
+        );
+			$id = $_POST['id'];
+         $this->Naka->update_table($data,'daftar_pesanan',$id);
+        redirect('Admin/daftar_pesanan');
+	}
+	function edit_gaji($id){
+			$data['judul']='Edit Gaji Pegawai';
+		$this->load->view('Admin/form_head',$data);
+		$data['gaji']=$this->Naka->daftar_select('daftar_gaji',$id)->result();
+		$data['pegawai']=$this->Naka->daftar('daftar_pegawai')->result();
+		$this->load->view('Admin/form_gaji_pegawai_u',$data);
+		$this->load->view('Admin/form_footer');
+	}
+	function update_gaji(){
+		$data = array(
+            'nik' => $_POST['nik'],
+            'gaji' => $_POST['gaji'],
+            'tanggal' =>  $_POST['tanggal'],
+        );
+        $id=$_POST['id'];
+         $this->Naka->update_table($data,'gaji_pegawai',$id);
+        redirect('Admin/gaji_pegawai');
+	}
+	function hapus_gaji_pegawai($id){
+		$this->Naka->delete_table('gaji_pegawai',$id);
+        redirect('Admin/gaji_pegawai');
+	}
+	function hapus_pemesanan($id){
+		$this->Naka->delete_table('daftar_pesanan',$id);
+        redirect('Admin/daftar_pesanan');
+	}
+	function hapus_pemasukan($id){
+		$this->Naka->delete_table('daftar_pemasukan',$id);
+        redirect('Admin/daftar_pemasukan');
+	}
+	function hapus_pengeluaran($id){
+		$this->Naka->delete_table('daftar_pengeluaran',$id);
+        redirect('Admin/daftar_pengeluaran');
+	}
+	function non_aktifkan_pegawai($id){
+		 $data = array(
+            'keluar' => date("Y-m-d"),
+            'status' => 'Keluar',
+        );
+        $this->Naka->update_table($data,'daftar_pegawai',$id);
+        redirect('Admin/daftar_pegawai');
+	}
 }

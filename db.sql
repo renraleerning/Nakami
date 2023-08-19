@@ -94,6 +94,6 @@ create database Nakami;
 		(null, '3211112233335599',3500000,'2023-08-01'),
 		(null, '3211112233225544',3600000,'2023-08-01');
 
-		create view daftar_gaji as select gaji_pegawai.id as id, gaji_pegawai.nik as nik, nama, jabatan, gaji, tanggal 
+		create view daftar_gaji as select gaji_pegawai.id as id, gaji_pegawai.nik as nik, nama, jabatan, gaji, tanggal, masuk, keluar, status 
 		from daftar_pegawai, gaji_pegawai
 		where gaji_pegawai.nik=daftar_pegawai.nik;

@@ -5,6 +5,16 @@ class Naka extends CI_Model {
 		$data = $this->db->get($tabel);
 		return($data);
 	}
+	function daftar_select($tabel,$id)
+	{
+		if ($tabel=='daftar_pegawai') {
+			$this->db->where('nik',$id);
+		}else{
+			$this->db->where('id',$id);
+		}
+		$data = $this->db->get($tabel);
+		return($data);
+	}
 	function list_tgl(){
 		$this->db->group_by('tanggal');
 		$this->db->order_by('tanggal','DESC');
@@ -28,6 +38,24 @@ class Naka extends CI_Model {
 	}
 	function insert_table($data,$tabel){
 		$this->db->insert($tabel,$data);
+	}
+	function update_table($data,$tabel,$id){
+		if ($tabel=='daftar_pegawai') {
+			$this->db->where('nik',$id);
+			$this->db->update($tabel,$data);
+		}else{
+			$this->db->where('id',$id);
+			$this->db->update($tabel,$data);	
+		}
+	}
+	function delete_table($tabel,$id){
+		if ($tabel=='daftar_pegawai') {
+			$this->db->where('nik',$id);
+			$this->db->delete($tabel);
+		}else{
+			$this->db->where('id',$id);
+			$this->db->delete($tabel);	
+		}
 	}
 }
 
