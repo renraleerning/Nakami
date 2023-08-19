@@ -7,7 +7,8 @@ class Naka extends CI_Model {
 	}
 	function daftar_select($tabel,$id)
 	{
-		if ($tabel=='daftar_pegawai') {
+		if (strcmp($tabel, 'daftar_pegawai
+		')==0)) {
 			$this->db->where('nik',$id);
 		}else{
 			$this->db->where('id',$id);
@@ -40,7 +41,8 @@ class Naka extends CI_Model {
 		$this->db->insert($tabel,$data);
 	}
 	function update_table($data,$tabel,$id){
-		if ($tabel=='daftar_pegawai') {
+		if (strcmp($tabel, 'daftar_pegawai
+		')==0)) {
 			$this->db->where('nik',$id);
 			$this->db->update($tabel,$data);
 		}else{
@@ -49,7 +51,8 @@ class Naka extends CI_Model {
 		}
 	}
 	function delete_table($tabel,$id){
-		if ($tabel=='daftar_pegawai') {
+		if (strcmp($tabel, 'daftar_pegawai
+		')==0)) {
 			$this->db->where('nik',$id);
 			$this->db->delete($tabel);
 		}else{
