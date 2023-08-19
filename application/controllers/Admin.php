@@ -4,10 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Admin extends CI_Controller {
 	public function __construct(){
         parent::__construct();
-        // if (isset($this->session->userdata['admin'])) {
-        // } else {
-        //     redirect(base_url());
-        // }
+        if (isset($this->session->userdata['admin'])) {
+        } else {
+            redirect(base_url());
+        }
     }
 	public function index()
 	{
@@ -99,7 +99,6 @@ class Admin extends CI_Controller {
 
 	function tambah_daftar_barang(){
         $barang = array(
-            'id' => 'null',
             'nama_barang' => $_POST['nama_barang'],
             'jenis_bahan' => $_POST['jenis_bahan'],
             'stok_barang' => $_POST['stok_barang'],

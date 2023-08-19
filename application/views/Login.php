@@ -1,7 +1,7 @@
 
 	<div class="w-96 border-4 border-black ml-[40%] mb-[20%] mt-[10%]">
 		<h1 class="text-4xl font-bold text-center pb-6">Login</h1>
-		<form>
+		<form action="<?php echo site_url('Home/logging') ?>" method='post'>
 			<center>
 			<input type="text" name="username" placeholder="Username" class=" mx-auto bg-[#919191] rounded placeholder-black placeholder:text-center input:text-center mb-4">
 			<br>
