@@ -8,7 +8,9 @@
 					<th class="text-lg">ID</th>
 					<th class="text-lg">Tanggal</th>
 					<th class="text-lg">Jenis Barang</th>
-					<th class="text-lg">Nominal</th>
+					<th class="text-lg">Harga</th>
+					<th class="text-lg">qty</th>
+					<th class="text-lg">Total</th>
 					<th class="text-lg">Bukti Struk</th>
 					<th class="text-lg">Opsi</th>
 				</tr>
@@ -19,7 +21,9 @@
 						<td class="text-center border-2 border-black"><?php echo $key->id; ?></td>
 						<td class="border-2 border-black pl-2"><?php echo $key->tanggal; ?></td>
 						<td class="border-2 border-black pl-2"><?php echo $key->jenis_barang; ?></td>
-						<td class="border-2 border-black pl-2"><?php echo $key->nominal; ?></td>
+						<td class="border-2 border-black pl-2"><?php echo $key->harga; ?></td>
+						<td class="border-2 border-black pl-2"><?php echo $key->qty; ?></td>
+						<td class="border-2 border-black pl-2"><?php echo $key->total; ?></td>
 						<td class="border-2 border-black pl-2"><?php if ($key->bukti_struk==null) {
 							echo "-";
 						}else{

@@ -1,5 +1,11 @@
 create database Nakami;
 	use nakami;
+		create table admin(
+		id int not null primary key auto_increment,
+		username varchar(100) not null,
+		email varchar(100) not null,
+		password text not null
+		);
 	create table daftar_barang(
 		id int not null primary key auto_increment,
 		nama_barang varchar(100) not null,
@@ -20,14 +26,18 @@ create database Nakami;
 		id int not null primary key auto_increment,
 		tanggal date not null,
 		nama_pemesan varchar(120) not null,
-		nominal bigint not null,
+		harga bigint not null,
+		qty bigint not null,
+		total bigint not null,
 		bukti_transfer text 
 		);
 	create table daftar_pengeluaran(
 		id int not null primary key auto_increment,
 		tanggal date not null,
 		jenis_barang varchar(50) not null,
-		nominal bigint not null,
+		harga bigint not null,
+		qty bigint not null,
+		total bigint not null,
 		bukti_struk text
 		);
 	create table daftar_pesanan(
@@ -66,18 +76,18 @@ create database Nakami;
 		('3211112233225544','Irvan Octavian K','ADMIN','SUMEDANG','2022-01-02',null,'Aktif');
 
 	insert into daftar_pemasukan values
-		(null,'2023-02-26','Erfan Gustiwana',2,null),
-		(null,'2023-02-27','Tomi Abuyazeed',1,null),
-		(null,'2023-02-28','Erick',4,null),
-		(null,'2023-02-30','Ferdi Khaleed',1,null),
-		(null,'2023-03-01','Raka',1,null);
+		(null,'2023-02-26','Erfan Gustiwana',20000,2,40000,null),
+		(null,'2023-02-27','Tomi Abuyazeed',15000,1,30000,null),
+		(null,'2023-02-28','Erick',30000,4,12000,null),
+		(null,'2023-02-30','Ferdi Khaleed',150000,1,150000,null),
+		(null,'2023-03-01','Raka',150000,1,150000,null);
 
 	insert into daftar_pengeluaran values
-		(null, '2023-03-02','BAHAN PIKE',2,null),
-		(null, '2023-03-03','TRANSPORT',3,null),
-		(null, '2023-03-03','LOTTO',10,null),
-		(null, '2023-03-04','BAHAN PIKE',3,null),
-		(null, '2023-03-04','COTTON',11,null);
+		(null, '2023-03-02','BAHAN PIKE',10000,2,20000,null),
+		(null, '2023-03-03','TRANSPORT',15000,3,45000,null),
+		(null, '2023-03-03','LOTTO',10000,10,100000,null),
+		(null, '2023-03-04','BAHAN PIKE',15000,3,45000,null),
+		(null, '2023-03-04','COTTON',10000,11,110000,null);
 
 	insert into daftar_pesanan values
 		(null,'2023-11-26','Bobi','J.PANJANG',1,160000,160000,0,null),

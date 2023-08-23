@@ -108,6 +108,16 @@ class Admin extends CI_Controller {
         $this->Naka->insert_table($barang,'daftar_barang');
         redirect('Admin');
 	}
+	function register(){
+        $data = array(
+            'username' => $_POST['username'],
+            'email' => $_POST['email'],
+            'password' => md5($_POST['password']),
+        );
+        print_r($data);
+        $this->Naka->insert_table($data,'admin');
+        // redirect('Home');
+	}
 
 	function tambah_pegawai(){
 		$pegawai = array(
@@ -157,14 +167,18 @@ class Admin extends CI_Controller {
 	            'bukti_struk' => $file['file_name'],
 	            'tanggal' => $_POST['tanggal'],
 				'jenis_barang' => $_POST['jenis_barang'],
-				'nominal' => $_POST['nominal'],
+				'harga' => $_POST['harga'],
+				'qty' => $_POST['qty'],
+				'total' => $_POST['qty']*$_POST['harga']
 	        );
          	    	
         }else{
         	 $data = array(
 	        'tanggal' => $_POST['tanggal'],
 	        'jenis_barang' => $_POST['jenis_barang'],
-	        'nominal' => $_POST['nominal'],
+	        'harga' => $_POST['harga'],
+			'qty' => $_POST['qty'],
+			'total' => $_POST['qty']*$_POST['harga']
         	);
         }
         print_r($data);
@@ -186,14 +200,18 @@ class Admin extends CI_Controller {
 	            'bukti_transfer' => $file['file_name'],
 	            'tanggal' => $_POST['tanggal'],
 				'nama_pemesan' => $_POST['nama_pemesan'],
-				'nominal' => $_POST['nominal']
+				'harga' => $_POST['harga'],
+				'qty' => $_POST['qty'],
+				'total' => $_POST['qty']*$_POST['harga']
 	        );
          	    	
         }else{
         	 $data = array(
 	     		'tanggal' => $_POST['tanggal'],
 				'nama_pemesan' => $_POST['nama_pemesan'],
-				'nominal' => $_POST['nominal']
+				'harga' => $_POST['harga'],
+				'qty' => $_POST['qty'],
+				'total' => $_POST['qty']*$_POST['harga']
         	);
         }
         print_r($data);
@@ -264,14 +282,18 @@ class Admin extends CI_Controller {
 	            'bukti_transfer' => $file['file_name'],
 	            'tanggal' => $_POST['tanggal'],
 				'nama_pemesan' => $_POST['nama_pemesan'],
-				'nominal' => $_POST['nominal']
+				'harga' => $_POST['harga'],
+				'qty' => $_POST['qty'],
+				'total' => $_POST['qty']*$_POST['harga']
 	        );
          	    	
         }else{
         	 $data = array(
 	     		'tanggal' => $_POST['tanggal'],
 				'nama_pemesan' => $_POST['nama_pemesan'],
-				'nominal' => $_POST['nominal']
+				'harga' => $_POST['harga'],
+				'qty' => $_POST['qty'],
+				'total' => $_POST['qty']*$_POST['harga']
         	);
         }
         $id=$_POST['id'];
@@ -281,33 +303,35 @@ class Admin extends CI_Controller {
 	function edit_pengeluaran($id){
 		$data['judul']='Edit Daftar Pengeluaran';
 		$this->load->view('Admin/form_head',$data);
-		$data['pemasukan']=$this->Naka->daftar_select('daftar_pemasukan',$id)->result();
-		$this->load->view('Admin/form_daftar_pemasukan_u',$data);
+		$data['pengeluaran']=$this->Naka->daftar_select('daftar_pengeluaran',$id)->result();
+		$this->load->view('Admin/form_daftar_pengeluaran_u',$data);
 		$this->load->view('Admin/form_footer');
 	}
 	function update_pengeluaran(){
         $config['upload_path']  = './Aset/bukti';
 	    $config['allowed_types'] = 'gif|jpg|png|jpeg';
         $this->load->library('upload', $config);
-        
+        $id=$_POST['id'];
         if ($this->upload->do_upload('bukti_struk')) {
         	$file = $this->upload->data();
 	       	$data = array(
 	            'bukti_struk' => $file['file_name'],
 	            'tanggal' => $_POST['tanggal'],
 				'jenis_barang' => $_POST['jenis_barang'],
-				'nominal' => $_POST['nominal'],
+				'harga' => $_POST['harga'],
+				'qty' => $_POST['qty'],
+				'total' => $_POST['qty']*$_POST['harga']
 	        );
          	    	
         }else{
         	 $data = array(
-	        'tanggal' => $_POST['tanggal'],
-	        'jenis_barang' => $_POST['jenis_barang'],
-	        'nominal' => $_POST['nominal'],
+	            'tanggal' => $_POST['tanggal'],
+				'jenis_barang' => $_POST['jenis_barang'],
+				'harga' => $_POST['harga'],
+				'qty' => $_POST['qty'],
+				'total' => $_POST['qty']*$_POST['harga']
         	);
         }
-        $id=$_POST('id');
-
         $this->Naka->update_table($data,'daftar_pengeluaran',$id);
         redirect('admin/daftar_pengeluaran');
 	}

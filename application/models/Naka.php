@@ -1,14 +1,21 @@
 <?php
 class Naka extends CI_Model {
+	public function check_admin($user, $pass)
+    {
+        $this->db->select('*');
+        $this->db->from('admin');
+        $this->db->where('username', $user);
+        $this->db->where('password', md5($pass));
+        return $this->db->get();
+    }
 	function daftar($tabel)
 	{
 		$data = $this->db->get($tabel);
 		return($data);
 	}
-	function daftar_select($tabel,$id)
-	{
+	function daftar_select($tabel,$id){
 		if (strcmp($tabel, 'daftar_pegawai
-		')==0)) {
+		')==0){
 			$this->db->where('nik',$id);
 		}else{
 			$this->db->where('id',$id);
@@ -42,7 +49,7 @@ class Naka extends CI_Model {
 	}
 	function update_table($data,$tabel,$id){
 		if (strcmp($tabel, 'daftar_pegawai
-		')==0)) {
+		')==0) {
 			$this->db->where('nik',$id);
 			$this->db->update($tabel,$data);
 		}else{
@@ -52,7 +59,7 @@ class Naka extends CI_Model {
 	}
 	function delete_table($tabel,$id){
 		if (strcmp($tabel, 'daftar_pegawai
-		')==0)) {
+		')==0) {
 			$this->db->where('nik',$id);
 			$this->db->delete($tabel);
 		}else{
